@@ -6,12 +6,12 @@
 
 const int window_width = 800, window_height = 450;
 
-#define NUM_BALLS  100
-#define NUM_COLORS 100
+#define NUM_BALLS  1
 
 typedef struct Ball {
     Vector2 position;
     Vector2 velocity;
+    Color color;
     int size;
 } Ball;
 
@@ -28,13 +28,6 @@ int main(void)
     InitWindow(window_width, window_height, "Jump Game");
 
     srand(time(NULL));
-
-    Color colors[NUM_COLORS] = {0};
-
-    for (int i = 0; i < NUM_COLORS; i++)
-    {
-        colors[i] = (Color){ rand() % 255, rand() % 255, rand() % 255, 255 };
-    }
 
     float gravity = 981;
 
@@ -87,7 +80,7 @@ int main(void)
         for (int i = 0; i < sizeof(balls)/sizeof(balls[0]); i++)
         {
             Ball ball = balls[i];
-            DrawCircleV(ball.position, ball.size, colors[i]);
+            DrawCircleV(ball.position, ball.size, balls[i].color);
         }
 
         EndDrawing();
@@ -106,6 +99,7 @@ void setup_balls(Ball *ball, int num_balls)
         balls[i].size = rand() % 30;
         balls[i].position = (Vector2){rand() % (window_width - 60) + 30, rand() % (window_height - 60) + 30};
         balls[i].velocity = (Vector2){(rand() % 900), (rand() % 900)};
+        balls[i].color = (Color){ rand() % 255, rand() % 255, rand() % 255, 255 };
     }
 
 }
